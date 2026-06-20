@@ -1,0 +1,6 @@
+{
+  "name": "Hoffesoft",
+  "description": "Interface moderna, responsiva e de alta performance inspirada na marca Hoffesoft, com foco em usabilidade mobile e transições fluidas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
