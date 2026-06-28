@@ -41,7 +41,6 @@ interface BioLink {
 export default function App() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  // Core Bio Links representing the Hoffesoft ecosystem
   const bioLinks: BioLink[] = [
     {
       id: "controle",
@@ -102,7 +101,7 @@ export default function App() {
       category: "CONTEÚDO & TUTORIAIS",
       title: "Canal no YouTube",
       subtitle: "Vídeos, tutoriais e novidades dos sistemas Hoffesoft.",
-      description: "Acesse nosso canal e confira playlists com tutoriais práticos, dicas de uso, novidades dos módulos e muito mais. Conteúdo direto ao ponto para você aproveitar ao máximo o sistema.",
+      description: "Acesse nosso canal e confira playlists com tutoriais práticos, dicas de uso, novidades dos módulos e muito mais.",
       url: "https://www.youtube.com/@Hoffesoft/playlists",
       ctaLabel: "Acessar Canal",
       directLink: true,
@@ -110,12 +109,7 @@ export default function App() {
       color: "from-red-600/15 to-rose-500/5",
       textColor: "text-red-500",
       bgGlow: "shadow-red-950/20 hover:shadow-red-950/40 border-red-900/20 hover:border-red-500/30",
-      features: [
-        "Playlists organizadas por módulo e segmento",
-        "Tutoriais passo a passo para novos usuários",
-        "Lançamentos e atualizações em primeira mão",
-        "Dicas avançadas para aproveitar cada recurso"
-      ]
+      features: []
     },
     {
       id: "outros",
@@ -166,10 +160,7 @@ export default function App() {
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="relative p-1.5 rounded-full bg-gradient-to-tr from-blue-600 via-sky-400 to-indigo-600 shadow-xl shadow-blue-950/50 mb-4 group cursor-pointer"
           >
-            {/* Soft breathing halo behind */}
             <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md group-hover:bg-blue-500/35 transition-all duration-300 animate-pulse" />
-
-            {/* The Actual Logo Icon Center */}
             <div className="relative w-20 sm:w-22 aspect-square rounded-full bg-[#030917] flex items-center justify-center overflow-hidden border border-white/5 active:scale-[0.97] transition-all">
               <img
                 src="/NomeSiteBranco.png"
@@ -179,7 +170,6 @@ export default function App() {
             </div>
           </motion.div>
 
-          {/* Company Name */}
           <motion.h1
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -190,7 +180,6 @@ export default function App() {
             Hoffesoft
           </motion.h1>
 
-          {/* Subtitle */}
           <motion.p
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -234,21 +223,17 @@ export default function App() {
                 layout="position"
                 className={`bg-slate-950/60 rounded-2xl border backdrop-blur-md transition-all shadow-lg flex flex-col overflow-hidden group/card ${link.bgGlow}`}
               >
-                {/* Main Card trigger Area */}
                 {link.directLink ? (
+                  /* Direct link card — no expand */
                   <a
                     href={link.url}
                     target="_blank"
                     rel="noreferrer"
                     className="w-full flex items-center gap-4 p-4 text-left select-none outline-none cursor-pointer"
-                    id={`link-card-${link.id}`}
                   >
-                    {/* Left Column: Segment Icon with Glow */}
                     <div className={`p-3.5 rounded-xl bg-gradient-to-tr ${link.color} text-slate-200 border border-white/[0.03] transition-all duration-300 shadow-md flex items-center justify-center shrink-0`}>
                       <LinkIcon className="h-5 w-5" />
                     </div>
-
-                    {/* Center Column: Text */}
                     <div className="flex-1 min-w-0 pr-1">
                       <span className="text-[9px] font-bold tracking-widest uppercase text-slate-500 block">
                         {link.category}
@@ -260,92 +245,83 @@ export default function App() {
                         {link.subtitle}
                       </p>
                     </div>
-
-                    {/* Right Column: External Link icon */}
                     <div className="flex flex-col items-center gap-3 shrink-0">
                       <ExternalLink className="h-4 w-4 text-slate-500 group-hover/card:text-red-400 transition-colors" />
                     </div>
                   </a>
                 ) : (
-                <div
-                  onClick={(e) => toggleExpand(link.id, e)}
-                  className="w-full flex items-center gap-4 p-4 text-left select-none outline-none cursor-pointer"
-                  id={`link-card-${link.id}`}
-                >
-                  {/* Left Column: Segment Icon with Glow */}
-                  <div className={`p-3.5 rounded-xl bg-gradient-to-tr ${link.color} text-slate-200 border border-white/[0.03] transition-all duration-300 shadow-md flex items-center justify-center shrink-0`}>
-                    <LinkIcon className="h-5w-5" />
-                  </div>
-
-                  {/* Center Column: Text */}
-                  <div className="flex-1 min-w-0 pr-1">
-                    <span className="text-[9px] font-bold tracking-widest uppercase text-slate-500 block">
-                      {link.category}
-                    </span>
-                    <h3 className="text-sm font-semibold text-white mt-0.5 tracking-wide flex items-center gap-1 group-hover/card:text-blue-300 transition-colors">
-                      {link.title}
-                    </h3>
-                    <p className="text-xs text-slate-400 font-light mt-0.5 truncate leading-snug">
-                      {link.subtitle}
-                    </p>
-                  </div>
-
-                  {/* Right Column: Chevron */}
-                  <div className="flex flex-col items-center gap-3 shrink-0">
-                    <ChevronDown
-                      className={`h-4.5 w-4.5 transition-transform duration-300 ${isExpanded ? "rotate-180 text-blue-400" : "text-slate-500"}`}
-                    />
-                  </div>
-                </div>
-
-                {/* Expanded Details Section */}
-                <AnimatePresence initial={false}>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="overflow-hidden bg-[#030917]/80 border-t border-slate-900/40"
+                  /* Expandable card */
+                  <>
+                    <div
+                      onClick={(e) => toggleExpand(link.id, e)}
+                      className="w-full flex items-center gap-4 p-4 text-left select-none outline-none cursor-pointer"
+                      id={`link-card-${link.id}`}
                     >
-                      <div className="p-4 space-y-4">
-                        <p className="text-xs text-slate-400 leading-relaxed font-light">
-                          {link.description}
-                        </p>
-
-                        {/* Bullets List */}
-                        <div className="space-y-2">
-                          {link.features.map((feature, featureIdx) => (
-                            <div key={featureIdx} className="flex items-start gap-2 text-[11px] text-slate-300 font-light">
-                              <span className="mt-0.5 p-0.5 rounded bg-emerald-500/10 text-emerald-400 shrink-0">
-                                <Check className="h-2.5 w-2.5 stroke-[4]" />
-                              </span>
-                              <span>{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Internal CTA directly within drawer expansion */}
-                        <a
-                          href={link.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="w-full inline-flex items-center justify-center gap-1.5 bg-blue-650 hover:bg-blue-600 active:scale-[0.98] transition-all text-white text-xs font-semibold py-2.5 px-4 rounded-xl shadow-lg shadow-blue-950 cursor-pointer"
-                        >
-                          <span>{link.ctaLabel ?? "Solicitar Demonstração"}</span>
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
+                      <div className={`p-3.5 rounded-xl bg-gradient-to-tr ${link.color} text-slate-200 border border-white/[0.03] transition-all duration-300 shadow-md flex items-center justify-center shrink-0`}>
+                        <LinkIcon className="h-5 w-5" />
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      <div className="flex-1 min-w-0 pr-1">
+                        <span className="text-[9px] font-bold tracking-widest uppercase text-slate-500 block">
+                          {link.category}
+                        </span>
+                        <h3 className="text-sm font-semibold text-white mt-0.5 tracking-wide flex items-center gap-1 group-hover/card:text-blue-300 transition-colors">
+                          {link.title}
+                        </h3>
+                        <p className="text-xs text-slate-400 font-light mt-0.5 truncate leading-snug">
+                          {link.subtitle}
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-center gap-3 shrink-0">
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-300 ${isExpanded ? "rotate-180 text-blue-400" : "text-slate-500"}`}
+                        />
+                      </div>
+                    </div>
+
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="overflow-hidden bg-[#030917]/80 border-t border-slate-900/40"
+                        >
+                          <div className="p-4 space-y-4">
+                            <p className="text-xs text-slate-400 leading-relaxed font-light">
+                              {link.description}
+                            </p>
+                            <div className="space-y-2">
+                              {link.features.map((feature, featureIdx) => (
+                                <div key={featureIdx} className="flex items-start gap-2 text-[11px] text-slate-300 font-light">
+                                  <span className="mt-0.5 p-0.5 rounded bg-emerald-500/10 text-emerald-400 shrink-0">
+                                    <Check className="h-2.5 w-2.5 stroke-[4]" />
+                                  </span>
+                                  <span>{feature}</span>
+                                </div>
+                              ))}
+                            </div>
+                            <a
+                              href={link.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="w-full inline-flex items-center justify-center gap-1.5 bg-blue-650 hover:bg-blue-600 active:scale-[0.98] transition-all text-white text-xs font-semibold py-2.5 px-4 rounded-xl shadow-lg shadow-blue-950 cursor-pointer"
+                            >
+                              <span>{link.ctaLabel ?? "Solicitar Demonstração"}</span>
+                              <ExternalLink className="h-3 w-3" />
+                            </a>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </>
                 )}
               </motion.div>
             );
           })}
         </div>
 
-        {/* Dynamic Technical Specifications / Localized Details Card */}
+        {/* Support Card */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -360,22 +336,20 @@ export default function App() {
               <p className="text-[11px] text-slate-500 font-light">Sistemas em nuvem monitorados ativos 24/7 de alta confiabilidade.</p>
             </div>
           </div>
-
           <div className="h-[1px] bg-slate-900/80 w-full" />
-
           <div className="flex items-start gap-2">
             <div className="text-[10px] bg-blue-950/30 border border-blue-900/30 px-1.5 py-0.5 rounded text-blue-400 font-bold shrink-0 mt-0.5 font-sans">
               ATD
             </div>
             <p className="text-[11px] text-slate-400 leading-normal font-light">
-              Fale com um técnico qualificado de Campina Grande/PB de Segunda a Sexta: <strong className="font-semibold text-slate-200">08h às 18h</strong>, e Sábados: <strong className="font-semibold text-slate-200 text-slate-200">08h às 12h</strong>.
+              Fale com um técnico qualificado de Campina Grande/PB de Segunda a Sexta: <strong className="font-semibold text-slate-200">08h às 18h</strong>, e Sábados: <strong className="font-semibold text-slate-200">08h às 12h</strong>.
             </p>
           </div>
         </motion.div>
 
       </div>
 
-      {/* Modern, clean Minimalist Footer */}
+      {/* Footer */}
       <div className="w-full max-w-sm text-center select-none z-10 pt-4 border-t border-slate-950/80">
         <a
           href="https://hoffesoft.com.br"
