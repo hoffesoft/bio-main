@@ -40,6 +40,36 @@ interface BioLink {
 
 export default function App() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const route = params.get("route");
+    
+    if (route === "youtube") {
+      setIsRedirecting(true);
+      const youtubeUrl = "https://www.youtube.com/@Hoffesoft/playlists";
+      const cleanUrl = youtubeUrl.replace(/^https?:\/\//, "");
+      
+      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+      const isAndroid = /android/i.test(userAgent);
+      
+      if (isAndroid) {
+        // Attempt to trigger the native app via intent
+        window.location.href = `intent://${cleanUrl}#Intent;package=com.google.android.youtube;scheme=https;S.browser_fallback_url=${encodeURIComponent(youtubeUrl)};end`;
+        
+        // Fallback to web version if they cancel or app is missing
+        const timeout = setTimeout(() => {
+          window.location.replace(youtubeUrl);
+        }, 2000);
+        
+        return () => clearTimeout(timeout);
+      } else {
+        // iOS / Desktop: Redirect to standard HTTPS link directly
+        window.location.replace(youtubeUrl);
+      }
+    }
+  }, []);
 
   const bioLinks: BioLink[] = [
     {
@@ -102,7 +132,7 @@ export default function App() {
       title: "Canal no YouTube",
       subtitle: "Vídeos, tutoriais e novidades dos sistemas Hoffesoft.",
       description: "Acesse nosso canal e confira playlists com tutoriais práticos, dicas de uso, novidades dos módulos e muito mais.",
-      url: "https://www.youtube.com/@Hoffesoft/playlists",
+      url: "?route=youtube",
       ctaLabel: "Acessar Canal",
       directLink: true,
       icon: Youtube,
@@ -135,6 +165,47 @@ export default function App() {
     e.stopPropagation();
     setExpandedId(expandedId === id ? null : id);
   };
+
+  if (isRedirecting) {
+    return (
+      <div className="min-h-screen bg-[#020710] text-slate-100 flex flex-col items-center justify-center p-6 antialiased relative">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b04_1px,transparent_1px),linear-gradient(to_bottom,#1e293b04_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_45%,#000_70%,transparent_100%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-[450px] bg-gradient-radial from-blue-900/10 via-transparent to-transparent pointer-events-none z-0" />
+        
+        <div className="relative z-10 flex flex-col items-center gap-5 text-center max-w-md">
+          <div className="p-1.5 rounded-full bg-gradient-to-tr from-blue-600 via-sky-400 to-indigo-600 shadow-xl shadow-blue-950/50 mb-2">
+            <div className="w-16 h-16 rounded-full bg-[#030917] flex items-center justify-center overflow-hidden border border-white/5">
+              <img
+                src="/NomeSiteBranco.png"
+                alt="Logo Hoffesoft"
+                className="w-10 h-10 object-contain"
+              />
+            </div>
+          </div>
+          
+          <div className="relative w-12 h-12 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full border-2 border-red-500/10" />
+            <div className="absolute inset-0 rounded-full border-2 border-t-red-500 animate-spin" />
+            <Youtube className="h-5 w-5 text-red-500" />
+          </div>
+
+          <h2 className="text-md font-semibold tracking-wide text-white mt-1" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            Abrindo o YouTube...
+          </h2>
+          <p className="text-xs text-slate-400 font-light max-w-xs leading-relaxed">
+            Se o aplicativo oficial não carregar automaticamente em seu aparelho, clique no botão abaixo.
+          </p>
+          <a
+            href="https://www.youtube.com/@Hoffesoft/playlists"
+            className="mt-2 inline-flex items-center justify-center gap-1.5 bg-red-600 hover:bg-red-500 active:scale-[0.98] transition-all text-white text-xs font-semibold py-2.5 px-6 rounded-xl shadow-lg shadow-red-950 cursor-pointer"
+          >
+            <span>Acessar no Navegador</span>
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#020710] text-slate-100 flex flex-col items-center justify-between selection:bg-blue-600/30 selection:text-blue-200 antialiased overflow-x-hidden relative py-10 px-4 sm:px-6">
