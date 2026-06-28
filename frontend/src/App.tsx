@@ -38,22 +38,6 @@ interface BioLink {
   directLink?: boolean;
 }
 
-// Helper to optimize URLs for mobile deep linking (especially YouTube on Android)
-const getOptimizedUrl = (url: string) => {
-  if (typeof window === "undefined" || !navigator) return url;
-  
-  const isYoutube = url.includes("youtube.com") || url.includes("youtu.be");
-  if (!isYoutube) return url;
-
-  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-  if (/android/i.test(userAgent)) {
-    const cleanUrl = url.replace(/^https?:\/\//, "");
-    return `intent://${cleanUrl}#Intent;package=com.google.android.youtube;scheme=https;S.browser_fallback_url=${encodeURIComponent(url)};end`;
-  }
-  
-  return url;
-};
-
 export default function App() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -242,7 +226,7 @@ export default function App() {
                 {link.directLink ? (
                   /* Direct link card — no expand */
                   <a
-                    href={getOptimizedUrl(link.url)}
+                    href={link.url}
                     target="_blank"
                     rel="noreferrer"
                     className="w-full flex items-center gap-4 p-4 text-left select-none outline-none cursor-pointer"
@@ -318,7 +302,7 @@ export default function App() {
                               ))}
                             </div>
                             <a
-                              href={getOptimizedUrl(link.url)}
+                              href={link.url}
                               target="_blank"
                               rel="noreferrer"
                               className="w-full inline-flex items-center justify-center gap-1.5 bg-blue-650 hover:bg-blue-600 active:scale-[0.98] transition-all text-white text-xs font-semibold py-2.5 px-4 rounded-xl shadow-lg shadow-blue-950 cursor-pointer"
