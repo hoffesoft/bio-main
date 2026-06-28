@@ -1,0 +1,104 @@
+{
+  "theme": "LIGHT",
+  "archetype": "4 (Swiss & High-Contrast)",
+  "emotional_tone": "Authoritative, Fast, Premium, Frictionless",
+  "typography": {
+    "fonts_to_install": [
+      "Cabinet Grotesk",
+      "Outfit"
+    ],
+    "headings": {
+      "font_family": "Cabinet Grotesk, sans-serif",
+      "weight": "800 (font-black)",
+      "letter_spacing": "tracking-tighter",
+      "usage": "Brand Name and prominent button titles"
+    },
+    "body": {
+      "font_family": "Outfit, sans-serif",
+      "weight": "400 to 600",
+      "usage": "Subtitles, descriptions, small text"
+    }
+  },
+  "colors": {
+    "background": {
+      "page": "#F3F4F6 (Tailwind gray-100)",
+      "card_primary": "#0A0A0A (Deep Black)",
+      "card_secondary": "#FFFFFF (Pure White)",
+      "card_gold": "bg-gradient-to-r from-amber-400 to-yellow-500"
+    },
+    "text": {
+      "primary": "#0A0A0A",
+      "secondary": "#4B5563 (Tailwind gray-600)",
+      "on_dark": "#FFFFFF",
+      "on_gold": "#000000"
+    },
+    "borders": {
+      "subtle": "#E5E7EB (Tailwind gray-200)",
+      "gold_ring": "ring-2 ring-amber-400 ring-offset-2 ring-offset-gray-100"
+    }
+  },
+  "layout_and_spacing": {
+    "container": "Mobile-first width. Use max-w-md mx-auto min-h-screen flex flex-col items-center justify-center p-6 sm:p-8.",
+    "avatar_section": "flex flex-col items-center mb-10 text-center",
+    "avatar_image": "w-24 h-24 rounded-full shadow-md border-4 border-white object-cover",
+    "brand_name": "mt-5 text-3xl font-black tracking-tighter text-gray-900",
+    "brand_subtitle": "mt-2 text-base text-gray-500 max-w-[280px]",
+    "button_stack": "w-full flex flex-col gap-4",
+    "button_structure": "Every button must be a large clickable block (min-h-[88px]), flex flex-row items-center p-5 rounded-2xl transition-all duration-300 relative overflow-hidden group."
+  },
+  "components": {
+    "button_1_restaurant": {
+      "role": "Sistemas para Restaurantes & Delivery",
+      "bg_classes": "bg-gray-900 hover:bg-black text-white shadow-xl shadow-black/10",
+      "icon_classes": "w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white mr-4 flex-shrink-0",
+      "text_classes": "font-bold text-lg leading-tight",
+      "arrow_icon": "absolute right-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-white/50"
+    },
+    "button_2_clinic": {
+      "role": "Sistemas para Clínicas & Consultórios",
+      "bg_classes": "bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 shadow-sm hover:shadow-md",
+      "icon_classes": "w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-900 mr-4 flex-shrink-0",
+      "text_classes": "font-bold text-lg leading-tight",
+      "arrow_icon": "absolute right-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-gray-400"
+    },
+    "button_3_gold": {
+      "role": "Falar com Consultor via WhatsApp",
+      "bg_classes": "bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-black shadow-lg shadow-amber-500/25 border border-amber-300/50",
+      "icon_classes": "w-12 h-12 rounded-full bg-black/10 flex items-center justify-center text-black mr-4 flex-shrink-0",
+      "text_classes": "font-black text-lg leading-tight tracking-tight",
+      "arrow_icon": "absolute right-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-black/50"
+    }
+  },
+  "interactions_and_motion": {
+    "buttons": "Add hover:-translate-y-1 and active:scale-95 to all buttons. The right arrow icon should slide in on hover.",
+    "page_load": "Use Framer Motion to stagger the entrance of the avatar, title, and each button (e.g., slide up with fade, staggerChildren 0.1s)."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "mapping": {
+      "restaurant": "Utensils or ChefHat",
+      "clinic": "Stethoscope or HeartPulse",
+      "whatsapp": "MessageCircle (or install react-icons and use FaWhatsapp)",
+      "arrow": "ChevronRight or ArrowRight"
+    }
+  },
+  "media": {
+    "avatar_placeholder": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/be774f2c-db80-4ccd-95ad-ee2b975b04ab/images/f5a7ba05b1a9c7cd1011bf24753dc871b97f8875ea9ede3e276a34b3511ac650.png",
+      "description": "Minimalist 3D geometric tech logo to be used as the profile picture / avatar at the top of the page."
+    }
+  },
+  "testing": {
+    "attributes": "Ensure all 3 CTA buttons have data-testid attributes (e.g., data-testid='cta-restaurant', data-testid='cta-clinic', data-testid='cta-whatsapp')."
+  },
+  "instructions_to_main_agent": [
+    "Build a single-page React component acting as a premium link-in-bio.",
+    "Do NOT clutter the page. Only the avatar, title, subtitle, and the 3 buttons.",
+    "Use Framer Motion for the initial page load animations (staggered fade up).",
+    "Format the WhatsApp link correctly with the provided message: 'Olá, vi o link na bio e quero entender qual o melhor sistema para o meu negócio.'",
+    "Use standard anchor tags (<a>) for external routing or React Router links if internal.",
+    "Ensure the gold button feels genuinely premium—use the specified amber gradient, black text, and tight tracking.",
+    "Use standard Tailwind classes as defined in the components section.",
+    "Embed the provided avatar image URL in the top circular image slot."
+  ]
+}
