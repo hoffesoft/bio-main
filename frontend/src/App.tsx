@@ -143,9 +143,9 @@ export default function App() {
     },
     {
       id: "outros",
-      category: "OUTROS SEGMENTOS",
-      title: "Fale no WhatsApp",
-      subtitle: "Controle Pet Shop, Salão de Estética e Agronegócio.",
+      category: "ECOSSISTEMA HOFFESOFT",
+      title: "Fale com um Consultor",
+      subtitle: "Sistemas especializados, Certificação Digital e atendimento personalizado.",
       description: "Temos módulos perfeitamente adaptados para as particularidades do seu dia a dia profissional com suporte dedicado.",
       url: "https://wa.me/5583988791595?text=Ol%C3%A1%20Hoffesoft!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Hoffesoft%20para%20meu%20dia%20a%20dia.",
       icon: MessageCircle,
