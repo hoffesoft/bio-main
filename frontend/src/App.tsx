@@ -148,6 +148,7 @@ export default function App() {
       subtitle: "Sistemas especializados, Certificação Digital e atendimento personalizado.",
       description: "Temos módulos perfeitamente adaptados para as particularidades do seu dia a dia profissional com suporte dedicado.",
       url: "https://wa.me/558393060292?text=Ol%C3%A1%20Hoffesoft!%20Gostaria%20de%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Hoffesoft%20para%20meu%20dia%20a%20dia.",
+      directLink: true,
       icon: MessageCircle,
       color: "from-purple-500/11 to-violet-500/5",
       textColor: "text-emerald-400",
